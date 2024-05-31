@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, shell } = require('electron');
+const { app, BrowserWindow, Menu, shell, MenuItem } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const windowStateKeeper = require('electron-window-state');
 const path = require('path');
@@ -30,25 +30,27 @@ if (!gotTheLock) {
       webPreferences: {
         contextIsolation: true,
         plugins: true,
+        devTools: false
       },
     });
 
     // Show the main window when it's ready
     mainWindow.once('ready-to-show', () => mainWindow.show());
 
-    // // Open external links in the user's default browser
-    // mainWindow.webContents.on('new-window', (event, url) => {
-    //   event.preventDefault();
-    //   shell.openExternal(url);
-    // });
-
     // Display context menu
     mainWindow.webContents.on('context-menu', (event, params) => {
-      Menu.getApplicationMenu().popup(mainWindow, params.x, params.y);
+      const contextMenu = Menu.buildFromTemplate([
+        { role: 'reload' },
+        { type: 'separator' },
+        { role: 'resetZoom' },
+        { role: 'zoomIn' },
+        { role: 'zoomOut' },
+      ]);
+      contextMenu.popup(mainWindow, params.x, params.y);
     });
 
     // Load the URL into the main window
-    mainWindow.loadURL('http://localhost:8000/');
+    mainWindow.loadURL('https://blablaland.seah.world/');
 
     // Manage window state
     mainWindowState.manage(mainWindow);
