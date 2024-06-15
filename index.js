@@ -50,7 +50,7 @@ if (!gotTheLock) {
     });
 
     // Load the URL into the main window
-    mainWindow.loadURL('https://blablaland.seah.world/');
+    mainWindow.loadURL('https://blablafantasy.com/');
 
     // Manage window state
     mainWindowState.manage(mainWindow);
